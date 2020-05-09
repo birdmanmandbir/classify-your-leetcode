@@ -4,8 +4,8 @@ from shutil import copyfile
 annotation = "// @"
 programing_language = ".cpp"
 # output_dir = "/home/neil/Codes/leetcode/题型总结/"
-output_dir = "/home/neil/Codes/classify-python/题型总结"
-input_dir = "/home/neil/Codes/classify-python" # also work dir
+output_dir = "/home/neil/Codes/leetcode/题型总结"
+input_dir = "/home/neil/Codes/leetcode" # also work dir
 # TODO log
 # cur_dir is abs path
 def recur(cur_dir):
@@ -38,6 +38,9 @@ def get_annotation(abs_filename):
         while(line):
             if annotation in line:
                 res = line.split(" ")[1].split("@")[1].replace("\n","")
+                # 过滤lc
+                if res == "lc":
+                    return ""
                 return res
             line = file.readline()
     return res
@@ -45,4 +48,6 @@ def get_annotation(abs_filename):
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
+    else:
+        os.rmdir(output_dir)
     recur(input_dir)
